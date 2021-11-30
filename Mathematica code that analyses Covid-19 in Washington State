@@ -1,0 +1,822 @@
+# Importing Washington State Covid-19 Dataset
+
+Cov = Import[
+  "C:\\Users\\vivia\\Documents\\MS in Applied Mathematics\\Fall \
+2021\\Non Linear Dynamics\\Project\\Data\\WA-COVID-19.csv", "Dataset",
+   "HeaderLines" -> 1]
+   
+# Selecting number of days and number of infected people columns in the original dataset
+
+Cov2 = Cov [All, {"Number of days", "Number of Infected People"}];
+
+# Converting Dataset to List
+
+time = Normal[Cov2[[All, "Number of days"]]];
+People = Normal[Cov2[[All, "Number of Infected People"]]];
+Cov2 = Transpose[{time, People}];
+
+# Plotting a new dataset that has only infected people
+
+plot1 = ListLinePlot[Cov2, PlotStyle -> {Black, PointSize[0.01]}, 
+  PlotLegends -> {"Infected people dataset"}, PlotStyle -> Black, 
+  AxesLabel -> {"Time(t)", "Infected People (I)"}, 
+  PlotLabel -> "Number of Covid-19 infected people in WA"]
+  
+# Selecting number of days and number of removed people columns in the original dataset
+
+Cov1 = Cov [All, {"Number of days", "Number of deaths"}];
+
+# Converting Dataset to List
+
+time = Normal[Cov1[[All, "Number of days"]]];
+deaths = Normal[Cov1[[All, "Number of deaths"]]];
+Cov1 = Transpose[{time, deaths}];
+
+# Plotting a new dataset that has only removed people
+
+plot2 = ListLinePlot[Cov1, PlotStyle -> {Red, PointSize[0.01]}, 
+  PlotLegends -> {"Removed people dataset"}, PlotStyle -> Black, 
+  AxesLabel -> {"Time(t)", "Removed People (R)"}, 
+  PlotLabel -> "Number of Removed Individuals from COVID-19 in WA"]
+  
+  
+# Selecting number of days and number of susceptible people columns in the original dataset
+
+Cov3 = Cov [All, {"Number of days", "Total Population"}];
+
+# Converting Dataset to List
+
+time = Normal[Cov3[[All, "Number of days"]]];
+Susceptible = Normal[Cov3[[All, "Total Population"]]];
+Cov3 = Transpose[{time, Susceptible}];
+
+# Plotting a new dataset that has only susceptible people
+
+plot3 = ListLinePlot[Cov3, PlotStyle -> {Green, PointSize[0.01]}, 
+  PlotLegends -> {"Susceptible"}, PlotStyle -> Black, 
+  AxesLabel -> {"Time(t)", "Susceptible People (S)"}, 
+  PlotLabel -> 
+   "Number of Susceptible Individuals from COVID-19 in WA", 
+  PlotRange -> All]
+  
+# Selecting Number of days , Number of Infected People, and Number of dead People Columns 
+
+Cov4 = Cov [
+   All, {"Number of days", "Number of Infected People", 
+    "Number of deaths", "Total Population"}];
+    
+# Converting Dataset to List
+
+time = Normal[Cov4[[All, "Number of days"]]];
+People = Normal[Cov4[[All, "Number of Infected People"]]];
+deaths = Normal[Cov4[[All, "Number of deaths"]]];
+Susceptible = Normal[Cov4[[All, "Total Population"]]];
+Cov4 = Transpose[{time, People, deaths}];
+
+# Plot of Susceptible, Infected, and Removed group
+
+Show[plot1, plot2, plot3]
+
+# Map of Washington State
+
+GeoGraphics[{GeoStyling["StreetMap"], Polygon[\!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{WolframAlphaClient`Private`query$$ = "WA", 
+       WolframAlphaClient`Private`boxes$$ = 
+       TemplateBox[{"\"Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"Washington\"", ",", "\"UnitedStates\""}], "}"}]}], "]"}], 
+         "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+         "\"administrative division\""}, "Entity"], 
+       WolframAlphaClient`Private`allassumptions$$ = {{
+        "type" -> "Clash", "word" -> "WA", 
+         "template" -> "Assuming \"WA\" is a US state${separator}Use \
+as ${desc} or ${desc} or ${desc} instead", "count" -> "4", 
+         "pulldown" -> "false", 
+         "default" -> "{\"C\", \"WA\"} -> {\"USState\", \"dflt\"}", 
+         "Values" -> {{
+           "name" -> "USState", "desc" -> "a US state", 
+            "input" -> "{\"C\", \"WA\"} -> {\"USState\"}"}, {
+           
+           "name" -> "Unit", "desc" -> "a unit", 
+            "input" -> "{\"C\", \"WA\"} -> {\"Unit\"}"}, {
+           "name" -> "Word", "desc" -> "a word", 
+            "input" -> "{\"C\", \"WA\"} -> {\"Word\"}"}, {
+           "name" -> "AcronymClass", "desc" -> "an acronym", 
+            "input" -> "{\"C\", \"WA\"} -> {\"AcronymClass\"}"}}}}, 
+       WolframAlphaClient`Private`assumptions$$ = {}, 
+       WolframAlphaClient`Private`open$$ = {1, 2}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 1, 
+Dynamic[WolframAlphaClient`Private`query$$], 
+Dynamic[WolframAlphaClient`Private`boxes$$], 
+Dynamic[WolframAlphaClient`Private`allassumptions$$], 
+Dynamic[WolframAlphaClient`Private`assumptions$$], 
+Dynamic[WolframAlphaClient`Private`open$$]], StandardForm],
+ImageSizeCache->{281., {7., 14.}},
+TrackedSymbols:>{
+         WolframAlphaClient`Private`query$$, 
+          WolframAlphaClient`Private`boxes$$, 
+          WolframAlphaClient`Private`allassumptions$$, 
+          WolframAlphaClient`Private`assumptions$$, 
+          WolframAlphaClient`Private`open$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{WolframAlphaClient`Private`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\)]}, GeoBackground -> None]
+
+
+# Map of Washington State showing number of cases and number of dead people due to Covid
+
+GeoRegionValuePlot[{\!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = "King County, Washington", 
+         Typeset`boxes$$ = 
+         TemplateBox[{"\"King County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"KingCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"KingCounty\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+           "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 1.4645793`7.617257885129862, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{327., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #2, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Pierce County, Washington, United States", Typeset`boxes$$ =
+          TemplateBox[{"\"Pierce County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"PierceCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"PierceCounty\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+           "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 2.0867988`7.771025571808176, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{336., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #3, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Adams County, Washington, United States", Typeset`boxes$$ = 
+         TemplateBox[{"\"Adams County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"AdamsCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", {\\\"AdamsCounty\
+\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+           "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 1.8411108`7.71662491908886, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{339., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #4 ,
+    \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Asotin County, Washington, United States", Typeset`boxes$$ =
+          TemplateBox[{"\"Asotin County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"AsotinCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"AsotinCounty\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+           "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 1.9709102`7.746211830594834, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{336., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #5,
+    \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Benton County, Washington, United States", Typeset`boxes$$ =
+          TemplateBox[{"\"Benton County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"BentonCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"BentonCounty\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+           "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 3.4049527`7.983656076772184, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{341., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #6,
+    \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Chelan County, Washington, United States", Typeset`boxes$$ =
+          TemplateBox[{"\"Chelan County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"ChelanCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"ChelanCounty\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+           "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 2.2099396`7.795925397613132, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{339., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #7, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Clallam County, Washington, United States", 
+         Typeset`boxes$$ = 
+         TemplateBox[{"\"Clallam County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"ClallamCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"ClallamCounty\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"",
+            "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 1.7440472`7.6931032277749525, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{342., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #8, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Clark County, Washington, United States", Typeset`boxes$$ = 
+         TemplateBox[{"\"Clark County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"ClarkCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           
+           "\"Entity[\\\"AdministrativeDivision\\\", {\\\"ClarkCounty\
+\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+           "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 2.0394305`7.761053903452694, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{330., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #9, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Columbia County, Washington, United States", 
+         Typeset`boxes$$ = 
+         TemplateBox[{
+          "\"Columbia County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"ColumbiaCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"ColumbiaCounty\\\", \\\"Washington\\\", \
+\\\"UnitedStates\\\"}]\"", "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 2.4029839`7.832295854535168, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{351., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #10, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Cowlitz County, Washington, United States", 
+         Typeset`boxes$$ = 
+         TemplateBox[{"\"Cowlitz County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"CowlitzCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"CowlitzCounty\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"",
+            "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 1.7810104`7.702211448977983, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{341., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #11, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Douglas County, Washington, United States", 
+         Typeset`boxes$$ = 
+         TemplateBox[{"\"Douglas County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"DouglasCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"DouglasCounty\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"",
+            "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 2.0817428`7.7699720647604105, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{345., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #12, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Ferry County, Washington, United States", Typeset`boxes$$ = 
+         TemplateBox[{"\"Ferry County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"FerryCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           
+           "\"Entity[\\\"AdministrativeDivision\\\", {\\\"FerryCounty\
+\\\", \\\"Washington\\\", \\\"UnitedStates\\\"}]\"", 
+           "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 2.4533015`7.8412959178703145, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{330., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #13, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Franklin County, Washington, United States", 
+         Typeset`boxes$$ = 
+         TemplateBox[{
+          "\"Franklin County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"FranklinCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           "\"Entity[\\\"AdministrativeDivision\\\", \
+{\\\"FranklinCounty\\\", \\\"Washington\\\", \
+\\\"UnitedStates\\\"}]\"", "\"administrative division\""}, "Entity"], 
+         Typeset`allassumptions$$ = {}, Typeset`assumptions$$ = {}, 
+         Typeset`open$$ = {1, 2}, Typeset`querystate$$ = {
+         "Online" -> True, "Allowed" -> True, 
+          "mparse.jsp" -> 1.969623`7.74592810052653, 
+          "Messages" -> {}}}, 
+DynamicBox[ToBoxes[
+AlphaIntegration`LinguisticAssistantBoxes["", 4, Automatic, 
+Dynamic[Typeset`query$$], 
+Dynamic[Typeset`boxes$$], 
+Dynamic[Typeset`allassumptions$$], 
+Dynamic[Typeset`assumptions$$], 
+Dynamic[Typeset`open$$], 
+Dynamic[Typeset`querystate$$]], StandardForm],
+ImageSizeCache->{345., {7., 14.}},
+TrackedSymbols:>{
+           Typeset`query$$, Typeset`boxes$$, Typeset`allassumptions$$,
+             Typeset`assumptions$$, Typeset`open$$, 
+            Typeset`querystate$$}],
+DynamicModuleValues:>{},
+UndoTrackedVariables:>{Typeset`open$$}],
+BaseStyle->{"Deploy"},
+DeleteWithContents->True,
+Editable->False,
+SelectWithContents->True]\) -> #14, \!\(\*
+NamespaceBox["LinguisticAssistant",
+DynamicModuleBox[{Typeset`query$$ = 
+         "Garfield County, Washington, United States", 
+         Typeset`boxes$$ = 
+         TemplateBox[{
+          "\"Garfield County, Washington, United States\"", 
+RowBox[{"Entity", "[", 
+RowBox[{"\"AdministrativeDivision\"", ",", 
+RowBox[{"{", 
+RowBox[{"\"GarfieldCounty\"", ",", "\"Washington\"", ",", 
+                   "\"UnitedStates\""}], "}"}]}], "]"}], 
+           
+  
+  
+# SIR MODEL ODE'S
+
+DE1 = D[s[t], t] == -\[Alpha]/N*s[t]*i[t];
+DE2 = D[i[t], t] == \[Alpha]/N*s[t]*i[t] - \[Lambda]*i[t];
+DE3 = D[r[t], t] == \[Lambda]* i[t];
+Prep = {DE1, DE2, DE3};
+
+# Parameters
+
+\[Alpha] = 1/2;
+\[Lambda] = 1/3;
+
+# Plotting SIR Model
+
+initial = {s[0] == 1, i[0] == 1.27*10^(-6), r[0] == 0};
+solution = 
+  Flatten[NDSolve[Join[Prep, initial], {s, i, r}, {t, 0, 150}]];
+splot = Plot[Evaluate[s[t] /. solution[[1]]], {t, 0, 150}, 
+   PlotStyle -> RGBColor[0, 0, 1], DisplayFunction -> Identity, 
+   PlotLegends -> {"Susceptible Individuals"}];
+iplot = Plot[Evaluate[i[t] /. solution[[2]]], {t, 0, 150}, 
+   PlotStyle -> RGBColor[1, 0, 0], DisplayFunction -> Identity, 
+   PlotLegends -> {"Infected Individuals"}];
+rplot = Plot[Evaluate[r[t] /. solution[[3]]], {t, 0, 150}, 
+   PlotStyle -> RGBColor[0, 1, 0], DisplayFunction -> Identity, 
+   PlotLegends -> {"Removed Individuals"}];
+Show[splot, iplot, rplot, AxesLabel -> {"t", "s,i,r"}, 
+ PlotRange -> {0, 1}, DisplayFunction -> $DisplayFunction, 
+ PlotLabel -> "COVID-19 SIR Model"]
+ 
+ # Fitting Infected people with COVID-19 Data to the ODE'S and Estimating Parameters (Alpha and Lambda) 
+ 
+ mymodel[alpha_?NumberQ, lambda_?NumberQ] := 
+ Module[{S, I1, R1, t}, 
+  First[I1 /. 
+    NDSolve[{S'[t] == -alpha*S[t]*I1[t], 
+      I1'[t] == alpha*S[t]*I1[t] - lambda*I1[t], 
+      R1'[t] == lambda*I1[t], S[0] == 300000, I1[0] == 10000, 
+      R1[0] == 0}, {S, I1, R1}, {t, 0, 420}]]]
+myfit = NonlinearModelFit[Cov2, 
+   mymodel[alpha, lambda][
+    t], {{alpha, 0.000005}, {lambda, 0.0000001}}, t];
+myfit["ParameterTable"]
+plotfit1 = 
+  Plot[myfit[t], {t, 0, 420}, PlotRange -> All, AxesOrigin -> {0, 0}, 
+   PlotLegends -> {"Fitted Model"}, PlotStyle -> Red, 
+   AxesLabel -> {"Time(t)", "Infected People (I)"}, 
+   PlotLabel -> "Covid-19 Fitted Model of Infected Individuals"];
+Show[plotfit1, plot1]
+
+# Fitting Infected people with COVID-19 Data to the ODE'S and Estimating Parameters (alpha, beta, gamma, lambda, phi)
+
+mymodel[alpha_?NumberQ, lambda_?NumberQ, gamma_?NumberQ, 
+  beta_?NumberQ, phi_?NumberQ] := 
+ Module[{S, I1, R1, t}, 
+  First[I1 /. 
+    NDSolve[{S'[t] == -alpha*S[t]*I1[t], 
+      I1'[t] == alpha*S[t]*I1[t] - lambda*I1[t], 
+      R1'[t] == lambda*I1[t], S[0] == gamma, I1[0] == beta, 
+      R1[0] == phi}, {S, I1, R1}, {t, 0, 420}]]]
+myfit1 = NonlinearModelFit[Cov2, 
+   mymodel[alpha, lambda][
+    t], {{alpha, 0.000005}, {lambda, 0.0000001}, {gamma, 
+     300000}, {beta, 10000}, {phi, 0}}, t];
+myfit1["ParameterTable"]
+plotfit2 = 
+ Plot[myfit1[t], {t, 0, 420}, PlotRange -> All, AxesOrigin -> {0, 0}, 
+  PlotLegends -> {"Fitted Model"}, PlotStyle -> Red, 
+  AxesLabel -> {"Time(t)", "Infected People (I)"}, 
+  PlotLabel -> 
+   "Covid-19 Fitted Model of Infected Individuals"]; Show[plotfit2, \
+plot1]
+
+# Obtain the residuals and plot them for each data point
+
+ListPlot[myfit1["FitResiduals"]]
+
+# Generate a plot of standardized residuals for the fitted Nonlinear model
+
+ListPlot[myfit1["StandardizedResiduals"], Frame -> True, 
+ Filling -> Axis]
+ 
+ # Fitting Removed people with COVID-19 Data to the ODE'S and Estimating Parameters (Alpha and Lambda) 
+ 
+ mymodel[alpha_?NumberQ, lambda_?NumberQ] := 
+ Module[{S, I1, R1, t}, 
+  First[I1 /. 
+    NDSolve[{S'[t] == -alpha*S[t]*I1[t], 
+      I1'[t] == alpha*S[t]*I1[t] - lambda*I1[t], 
+      R1'[t] == lambda*I1[t], S[0] == 1000, I1[0] == 10, 
+      R1[0] == 0}, {S, I1, R1}, {t, 0, 420}]]]
+myfit01 = 
+  NonlinearModelFit[Cov1, 
+   mymodel[alpha, lambda][
+    t], {{alpha, 0.000005}, {lambda, 0.0000001}}, t];
+myfit01["ParameterTable"]
+plotfit3 = 
+  Plot[myfit01[t], {t, 0, 420}, PlotRange -> All, 
+   AxesOrigin -> {0, 0}, PlotLegends -> {"Fitted Model"}, 
+   PlotStyle -> Black, 
+   AxesLabel -> {"Time(t)", "Removed Individuals (R)"}, 
+   PlotLabel -> "Covid-19 Fitted Model of Removed Individuals"];
+Show[plotfit3, plot2]
+
+# Fitting Removed people with COVID-19 Data to the ODE'S and Estimating Parameters (alpha, beta, gamma, lambda, phi)
+
+mymodel[alpha_?NumberQ, lambda_?NumberQ, gamma_?NumberQ, 
+  beta_?NumberQ, phi_?NumberQ] := 
+ Module[{S, I1, R1, t}, 
+  First[I1 /. 
+    NDSolve[{S'[t] == -alpha*S[t]*I1[t], 
+      I1'[t] == alpha*S[t]*I1[t] - lambda*I1[t], 
+      R1'[t] == lambda*I1[t], S[0] == gamma, I1[0] == beta, 
+      R1[0] == phi}, {S, I1, R1}, {t, 0, 420}]]]
+myfit02 = 
+  NonlinearModelFit[Cov1, 
+   mymodel[alpha, lambda][
+    t], {{alpha, 0.000005}, {lambda, 0.0000001}, {gamma, 1000}, {beta,
+      10}, {phi, 0}}, t];
+myfit02["ParameterTable"]
+plotfit4 = 
+  Plot[myfit02[t], {t, 0, 420}, PlotRange -> All, 
+   AxesOrigin -> {0, 0}, PlotLegends -> {"Fitted Model"}, 
+   PlotStyle -> Black, 
+   AxesLabel -> {"Time(t)", "Removed Individuals (R)"}, 
+   PlotLabel -> "Covid-19 Fitted Model of Removed Individuals"];
+Show[plotfit4, plot2]
+
+# Obtain the residuals and plot them for each data point
+
+ListPlot[myfit02["FitResiduals"]]
+
+# Generate a plot of standardized residuals for the fitted Nonlinear model
+
+ListPlot[myfit02["StandardizedResiduals"], Frame -> True, 
+ Filling -> Axis]
+ 
+ # CUBIC SPLINES
+ 
+ Data = Cov2;
+Clear[x, a, b, c, d]
+Spline3[Data_] := (k = Length[Data];
+  atable = Table[Subscript[a, i], {i, 1, k - 3}];
+  btable = Table[Subscript[b, i], {i, 1, k - 3}];
+  ctable = Table[Subscript[c, i], {i, 1, k - 3}];
+  dtable = Table[Subscript[d, i], {i, 1, k - 3}];
+  Poly = Table[
+    atable[[i]] + btable[[i]]*x + ctable[[i]]*x^2 + 
+     dtable[[i]]*x^3, {i, 1, k - 3}];
+  intermediate = Table[Data[[i + 2]], {i, 1, k - 4}];
+  Equations = Table[0, {i, 1, 4 (k - 3)}];
+  Do[Equations[[i]] = (Poly[[i]] /. x -> Data[[i + 2, 1]]) == 
+     Data[[i + 2, 2]], {i, 1, k - 4}];
+  Do[Equations[[
+     i + k - 4]] = (Poly[[i + 1]] /. x -> Data[[i + 2, 1]]) == 
+     Data[[i + 2, 2]], {i, 1, k - 4}];
+  Equations[[2 (k - 4) + 1]] = (Poly[[1]] /. x -> Data[[1, 1]]) == 
+    Data[[1, 2]];
+  Equations[[2 (k - 4) + 2]] = (Poly[[1]] /. x -> Data[[2, 1]]) == 
+    Data[[2, 2]];
+  Equations[[
+    2 (k - 4) + 3]] = (Poly[[k - 3]] /.  x -> Data[[k - 1, 1]]) == 
+    Data[[k - 1, 2]];
+  Equations[[2 (k - 4) + 4]] = (Poly[[k - 3]] /. x -> Data[[k, 1]]) ==
+     Data[[k, 2]];
+  Do[Equations[[
+     2 (k - 3) + 2 + 
+      i]] = (D[Poly[[i]], x] /. 
+       x -> intermediate[[i, 1]]) == (D[Poly[[i + 1]], x] /. 
+       x -> intermediate[[i, 1]]), {i, 1, k - 4}];
+  Do[Equations[[
+     2 (k - 3) + 2 + k - 4 + 
+      i]] = (D[Poly[[i]], {x, 2}] /. 
+       x -> intermediate[[i, 1]]) == (D[Poly[[i + 1]], {x, 2}] /.  
+       x -> intermediate[[i, 1]]), {i, 1, k - 4}];
+  f = Solve[Equations];
+  Poly = Poly /. f[[1]];
+  xs = intermediate;
+  xs = Prepend[Append[xs, Data[[k]]], Data[[1]]];
+  pf = Table[{Poly[[i]], xs[[i, 1]] <= x <= xs[[i + 1, 1]]}, {i, 1, 
+     k - 3}];
+  Piecewise[pf])
+Equations // MatrixForm
+y = Spline3[Data]
+a = Plot[y, {x, 0, 420}, AxesLabel -> {"time", "Infected People"}, 
+  ImageSize -> Medium, PlotRange -> All, PlotLabel -> "cubic spline"]
+ 
+ 
+
+
+ 
